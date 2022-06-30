@@ -152,7 +152,7 @@ class _Identify2State extends State<Identify2> {
                   children: [
                     Center(
                       child: Text(
-                        "Take Face Picture",
+                        "Take Face Picture \n with Holding CNIC",
                         style: TextStyle(
                             color: primayColor,
                             fontSize: 22,

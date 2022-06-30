@@ -22,7 +22,7 @@ class _LoginState extends State<Login> {
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/images/bgimage.png"),
                       fit: BoxFit.fill)),
@@ -32,7 +32,7 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
+                    const Center(
                       child: Text(
                         "Loan",
                         style: TextStyle(
@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.10,
                     ),
-                    Text(
+                    const Text(
                       "Welcome,Please Login ",
                       style: TextStyle(
                           color: Colors.white,

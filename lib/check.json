@@ -1,0 +1,43 @@
+{
+    "userDetail": {
+        "fullName": "Arham",
+        "phoneNumber": "+923084695012",
+        "authToken": "uniqui"
+    },
+    "basic_info": {
+        "fullName": "Arham Sarwar",
+        "gender": "M",
+        "martialStatus": "unmarreid",
+        "province": "punjab",
+        "city": "lahore",
+        "address": "nisbat road ,Lahore",
+        "contactsList": [
+            {
+                "name": "ali",
+                "number": "03084695012",
+                "relationship": "friend"
+            }
+        ]
+    },
+    "identityDetails": {
+        "fullName": "Arham Sarwar",
+        "cnic": "2190832138091",
+        "dateOfBirth": "TimeStamp",
+        "cnicFrontImg": "base64",
+        "cnicBackImg": "base64",
+        "selfieImg": "base64"
+    },
+    "accountDetails":{
+        "mobile":{
+            "mobileWalletType": "easypaisa",
+            "accountNumber": "03084695012"
+          },
+
+          "bank": {
+            "bankName": "ubl",
+            "accountNumber": "03084695012",
+            "cvv":"2132"
+          }
+          
+    }
+}

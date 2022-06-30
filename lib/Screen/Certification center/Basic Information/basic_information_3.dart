@@ -225,7 +225,7 @@ class _BasicInformation3State extends State<BasicInformation3> {
                       height: MediaQuery.of(context).size.height / 70,
                     ),
                     Text(
-                      "Source Of Income",
+                      "Designation",
                       style: TextStyle(
                           color: primayColor,
                           fontSize: 15,
@@ -264,7 +264,7 @@ class _BasicInformation3State extends State<BasicInformation3> {
                           borderSide: BorderSide(color: Colors.grey),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        hintText: "Enter Source of Income",
+                        hintText: "Enter Designation",
                         hintStyle:
                             TextStyle(color: Colors.black38, fontSize: 16),
                       ),

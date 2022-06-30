@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_cash/Screen/my_account.dart';
-
-
-import '../Utils/constant.dart';
-import 'FAQ.dart';
+import 'package:my_cash/Screen/authentication/opt_screen.dart';
+import '../../Utils/constant.dart';
+import '../FAQ.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -19,6 +17,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   clearTextInput() {
     text.clear();
   }
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +42,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          iconSize: 25,
-                          color: primayColor,
-                          icon: const Icon(Icons.arrow_back),
+                        Container(
+                          width: 30,
                         ),
+                        // IconButton(
+                        //   onPressed: () {
+                        //     Navigator.pop(context);
+                        //   },
+                        //   iconSize: 25,
+                        //   color: primayColor,
+                        //   icon: const Icon(Icons.arrow_back),
+                        // ),
                         Text(
                           "MyCash",
                           style: TextStyle(
@@ -76,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Container(
                       height: MediaQuery.of(context).size.height * 0.30,
                       width: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage("assets/images/bro.png"),
                               fit: BoxFit.fitHeight)),
@@ -200,10 +204,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     InkWell(
                       onTap: () {
+
+                          
+                        
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (Context) => MyAccount()));
+                                builder: (Context) => OtpScreen()));
                       },
                       child: Card(
                         elevation: 10,
@@ -239,7 +247,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     blurRadius: 1.0,
                                   ),
                                 ]),
-                            child: Text("Next",
+                            child: const Text("Next",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w900,

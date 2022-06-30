@@ -168,7 +168,8 @@ class _BasicInformationState extends State<BasicInformation> {
                         "This Information will only be used in Emergency Situations and we will ensure your Information Security",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Colors.white, fontSize: size.width * 0.04),
+                          
+                            color: Colors.white, fontSize: size.width * 0.03),
                       ),
                     )
                   ],
@@ -195,7 +196,7 @@ class _BasicInformationState extends State<BasicInformation> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Card(
                           elevation: 10,
