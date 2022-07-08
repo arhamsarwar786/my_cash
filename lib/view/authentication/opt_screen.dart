@@ -1,19 +1,44 @@
-import 'package:flutter/material.dart';
-import 'package:my_cash/Screen/MainPage/Home.dart';
-import 'package:my_cash/Utils/constant.dart';
+import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:my_cash/Utils/constant.dart';
+import 'package:my_cash/controllers/GlobalState.dart';
+import 'package:my_cash/controllers/Preferences/preferences.dart';
+import 'package:my_cash/models/userDetailModel.dart';
+
+import '../../controllers/saving_user_details.dart';
+import '../home/home_screen.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+  final phoneNumber;
+  OtpScreen(this.phoneNumber);
 
   @override
   _OtpScreenState createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+
+  final codeDigit1 = TextEditingController();
+  final codeDigit2 = TextEditingController();
+  final codeDigit3 = TextEditingController();
+  final codeDigit4 = TextEditingController();
+  final codeDigit5 = TextEditingController();
+  final codeDigit6 = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          SavedPreferences.clearPreference();
+          GlobalState.userDetails = null;
+          print("Cleared");
+          // print(await SavedPreferences.getUserDetails());
+          //  print(GlobalState.userDetails!.phoneNumber);
+        },
+      ),
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xfff7f6fb),
       body: SafeArea(
@@ -39,7 +64,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 width: 200,
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple.shade50,
+                  color: Colors.amber.shade50,
                   shape: BoxShape.circle,
                 ),
                 // child: Image.asset(
@@ -85,6 +110,8 @@ class _OtpScreenState extends State<OtpScreen> {
                         _textFieldOTP(first: true, last: false),
                         _textFieldOTP(first: false, last: false),
                         _textFieldOTP(first: false, last: false),
+                        _textFieldOTP(first: false, last: false),
+                        _textFieldOTP(first: false, last: false),
                         _textFieldOTP(first: false, last: true),
                       ],
                     ),
@@ -94,8 +121,19 @@ class _OtpScreenState extends State<OtpScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> Home() ) );
+                        onPressed: () async {
+
+                          var auth = FirebaseAuth.instance;
+
+                          String smsCode = "${codeDigit1.text}${codeDigit2.text}${codeDigit3.text}${codeDigit4.text}${codeDigit5.text}${codeDigit6.text}";
+              //            var credential =  PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode );
+              // auth.signInWithCredential(credential).then((res)=> print(res.credential));
+
+                          
+                          saveUserDetail({'phoneNumber':"${widget.phoneNumber}"});
+
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Home()));
                         },
                         style: ButtonStyle(
                           foregroundColor:
@@ -141,7 +179,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.purple,
+                  color: kprimayColor,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -152,12 +190,13 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _textFieldOTP({bool? first, last}) {
+  Widget _textFieldOTP({bool? first, last,controller}) {
     return Container(
-      height: 85,
+      height: 70,
       child: AspectRatio(
-        aspectRatio: 0.8,
+        aspectRatio: 0.6,
         child: TextField(
+          controller: controller,
           autofocus: true,
           onChanged: (value) {
             if (value.length == 1 && last == false) {
@@ -176,10 +215,10 @@ class _OtpScreenState extends State<OtpScreen> {
           decoration: InputDecoration(
             counter: Offstage(),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Colors.black12),
+                borderSide: BorderSide(width: 2, color: kprimayColor),
                 borderRadius: BorderRadius.circular(12)),
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2, color: Colors.purple),
+                borderSide: BorderSide(width: 2, color: primayColor),
                 borderRadius: BorderRadius.circular(12)),
           ),
         ),

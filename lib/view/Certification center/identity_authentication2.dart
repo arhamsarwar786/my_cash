@@ -1,6 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import '/Screen/Certification%20center/certification_center.dart';
+import 'package:my_cash/controllers/API_MANGER/api_manager.dart';
+import 'package:my_cash/controllers/GlobalState.dart';
+import 'package:my_cash/view/Certification%20center/widgets.dart';
+import 'package:my_cash/widgets.dart';
+import '../../controllers/Preferences/preferences.dart';
+import '../../controllers/image_picker_controller.dart';
+import '../../view/Certification center/certification_center.dart';
+import '../home/home_screen.dart';
 import '/Utils/constant.dart';
+
 class Identify2 extends StatefulWidget {
   const Identify2({Key? key}) : super(key: key);
 
@@ -9,8 +19,8 @@ class Identify2 extends StatefulWidget {
 }
 
 class _Identify2State extends State<Identify2> {
-  bool _mobilePayment = true;
-  bool _bankPayment = false;
+  bool selfie = true;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -164,45 +174,10 @@ class _Identify2State extends State<Identify2> {
                     ),
                     Center(
                       child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: _mobilePayment
-                                  ? const Color(0xFFFFc100)
-                                  : const Color(0xFFCCCCCC),
-                              borderRadius: BorderRadius.circular(25),
-                              border: _mobilePayment
-                                  ? Border.all(color: Colors.black, width: 3)
-                                  : null,
-                              boxShadow: kElevationToShadow[4]),
-                          height: size.height * 0.15,
-                          width: size.width * 0.35,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: Colors.white38,
-                                child: Icon(
-                                  Icons.camera,
-                                  size: 30,
-                                  color: primayColor,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Take Selfie",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: size.width * 0.05,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        onTap: () {
+                          showMyDialogue(context, 'selfie');
+                        },
+                        child: selfieImageMethod(context, size, selfie),
                       ),
                     ),
                     SizedBox(
@@ -211,10 +186,23 @@ class _Identify2State extends State<Identify2> {
                     Center(
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (Contect) => Certifiction()));
+                          setState(() {});
+                          if (selfieImgFile == null) {
+                            snackBar(context, "Please! Select Image");
+                          } else {
+                            GlobalState.userDetails!.selfieImg =
+                                selfieImgBase64;
+
+                            SavedPreferences.saveUserDetails(
+                                jsonEncode(GlobalState.userDetails));
+                            APIManager().postUserDetails(context);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(builder: (context) => Home()),
+                                (Route<dynamic> route) => false);
+
+                            snackBar(context, "Information Saved");
+                          }
                         },
                         child: Card(
                           elevation: 10,
@@ -229,7 +217,7 @@ class _Identify2State extends State<Identify2> {
                                     BorderRadius.all(Radius.circular(20.0)),
                                 color: Colors.black,
                               ),
-                              child: Text("Send",
+                              child: Text("Send Information for Load",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w900,

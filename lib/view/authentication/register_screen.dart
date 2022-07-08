@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_cash/Screen/authentication/opt_screen.dart';
+import 'package:my_cash/controllers/Preferences/preferences.dart';
+import '/view/authentication/opt_screen.dart';
 import '../../Utils/constant.dart';
+import '../../controllers/firebaseAuth.dart';
+import '../../widgets.dart';
 import '../FAQ.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -11,20 +14,17 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final text = TextEditingController();
+  final phoneNumber = TextEditingController();
   bool _value = false;
 
   clearTextInput() {
-    text.clear();
+    phoneNumber.clear();
   }
-
-
-  
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(       
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
@@ -89,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       height: MediaQuery.of(context).size.height * 0.10,
                     ),
                     TextField(
-                      controller: text,
+                      controller: phoneNumber,
                       keyboardType: TextInputType.number,
                       cursorColor: primayColor,
                       autofocus: false,
@@ -205,13 +205,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     InkWell(
                       onTap: () {
 
-                          
-                        
+                        if (phoneNumber.text.length >= 12 && _value == true) {
+                        // registerUser();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (Context) =>
+                                      OtpScreen(phoneNumber.text)));
+                        } else {
+                          snackBar(context,
+                              "Please! Check your Phone Number OR Terms and Conditions");
+                        }
 
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (Context) => OtpScreen()));
                       },
                       child: Card(
                         elevation: 10,

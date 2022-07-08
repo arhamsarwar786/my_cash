@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../Utils/constant.dart';
 import 'Certification center/certification_center.dart';
-import 'Certification center/mobile_bank.dart';
+import 'Certification center/Mobile or Bank/mobile_bank.dart';
 import 'FAQ.dart';
 import 'contact_us.dart';
 import 'privicy_policy.dart';
@@ -39,7 +39,7 @@ class _MyAccountState extends State<MyAccount> {
     FAQ(),
     ContactUs(),
     PrivicyPolicy(),
-    Setting(),
+    SettingScreen(),
   ];
   @override
   Widget build(BuildContext context) {

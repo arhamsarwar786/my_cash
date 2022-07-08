@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-
+import 'package:my_cash/controllers/Preferences/preferences.dart';
 import '../../../Utils/constant.dart';
+import '../../../controllers/GlobalState.dart';
+import '../../../widgets.dart';
 import '../certification_center.dart';
-
+import 'widgets.dart';
 
 class BasicInformation3 extends StatefulWidget {
   const BasicInformation3({Key? key}) : super(key: key);
@@ -12,6 +16,12 @@ class BasicInformation3 extends StatefulWidget {
 }
 
 class _BasicInformation3State extends State<BasicInformation3> {
+  final incomeController = TextEditingController();
+  final designationController = TextEditingController();
+  final companyNameController = TextEditingController();
+  final companyAddressController = TextEditingController();
+  final companyTelephoneController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -176,253 +186,76 @@ class _BasicInformation3State extends State<BasicInformation3> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Monthly Income",
-                      style: TextStyle(
-                          color: primayColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
+                    CustomTextField(
+                      title: "Monthly Income",
+                      controller: incomeController,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,
                     ),
-                    TextField(
-                      // controller: text,
-                      keyboardType: TextInputType.name,
-                      cursorColor: primayColor,
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 25),
-                        fillColor: Colors.white,
-                        filled: true,
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        hintText: "Enter Income",
-                        hintStyle:
-                            TextStyle(color: Colors.black38, fontSize: 16),
-                      ),
+                    CustomTextField(
+                      title: "Designation",
+                      controller: designationController,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,
                     ),
-                    Text(
-                      "Designation",
-                      style: TextStyle(
-                          color: primayColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
+                    CustomTextField(
+                      title: "Company Name",
+                      controller: companyNameController,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,
                     ),
-                    TextField(
-                      // controller: text,
-                      keyboardType: TextInputType.name,
-                      cursorColor: primayColor,
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 25),
-                        fillColor: Colors.white,
-                        filled: true,
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        hintText: "Enter Designation",
-                        hintStyle:
-                            TextStyle(color: Colors.black38, fontSize: 16),
-                      ),
+                    CustomTextField(
+                      title: "Company Address",
+                      controller: companyAddressController,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,
                     ),
-                    Text(
-                      "Company Name",
-                      style: TextStyle(
-                          color: primayColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 70,
-                    ),
-                    TextField(
-                      // controller: text,
-                      keyboardType: TextInputType.name,
-                      cursorColor: primayColor,
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 25),
-                        fillColor: Colors.white,
-                        filled: true,
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        hintText: "Enter Compamy Name",
-                        hintStyle:
-                            TextStyle(color: Colors.black38, fontSize: 16),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 70,
-                    ),
-                    Text(
-                      "Company Address",
-                      style: TextStyle(
-                          color: primayColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 70,
-                    ),
-                    TextField(
-                      // controller: text,
-                      keyboardType: TextInputType.name,
-
-                      cursorColor: primayColor,
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 25),
-                        fillColor: Colors.white,
-                        filled: true,
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        hintText: "Enter Company Address",
-                        hintStyle:
-                            TextStyle(color: Colors.black38, fontSize: 16),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 70,
-                    ),
-                    Text(
-                      "Company Telephone",
-                      style: TextStyle(
-                          color: primayColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 70,
-                    ),
-                    TextField(
-                      // controller: text,
-                      keyboardType: TextInputType.name,
-
-                      cursorColor: primayColor,
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 25),
-                        fillColor: Colors.white,
-                        filled: true,
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        hintText: "Enter Company Telephone",
-                        hintStyle:
-                            TextStyle(color: Colors.black38, fontSize: 16),
-                      ),
+                    CustomTextField(
+                      title: "Company Telephone",
+                      controller: companyTelephoneController,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,
                     ),
                     Center(
                       child: InkWell(
-                        onTap: () {
+                        onTap: () async {
+                          if (incomeController.text.isEmpty) {
+                            snackBar(context, "Please! Enter Monthly Income");
+                          } else if (designationController.text.isEmpty) {
+                            snackBar(context, "Please! Enter Designation");
+                          } else if (companyNameController.text.isEmpty) {
+                            snackBar(context, "Please! Company Name");
+                          } else if (companyAddressController.text.isEmpty) {
+                            snackBar(context, "Please! Enter Company Address");
+                          } else if (companyTelephoneController.text.isEmpty) {
+                            snackBar(
+                                context, "Please! Enter Company Telephone");
+                          } else {
+
+                            GlobalState.userDetails!.income =
+                                incomeController.text;
+                            GlobalState.userDetails!.designation =
+                                designationController.text;
+                            GlobalState.userDetails!.companyName =
+                                companyNameController.text;
+                            GlobalState.userDetails!.companyAddress =
+                                companyAddressController.text;
+                            GlobalState.userDetails!.companyTelephone =
+                                companyTelephoneController.text;
+
+                        // print(GlobalState.userDetails.des);
+                          SavedPreferences.saveUserDetails(
+                              jsonEncode(GlobalState.userDetails));
+
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => Certifiction()));
+                          }
+
                         },
                         child: Card(
                           elevation: 10,
@@ -440,7 +273,7 @@ class _BasicInformation3State extends State<BasicInformation3> {
                                   primayColor,
                                 ]),
                               ),
-                              child: Text("Next",
+                              child: Text("Save",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w900,
@@ -458,6 +291,10 @@ class _BasicInformation3State extends State<BasicInformation3> {
     );
   }
 }
+
+
+// icome,designation,companyName,companyAddress,companyTelephone
+
 
 // Stack(
 //           children: [

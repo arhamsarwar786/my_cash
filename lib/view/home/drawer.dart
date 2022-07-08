@@ -36,7 +36,7 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
     Icons.help_center,
     Icons.share,
   ];
-  var _navigationSc = [Certifiction(), ContactUs(), Setting(), FAQ(), Share()];
+  var _navigationSc = [Certifiction(), ContactUs(), SettingScreen(), FAQ(), Share()];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
   static const _itemSlideTime = Duration(milliseconds: 600);

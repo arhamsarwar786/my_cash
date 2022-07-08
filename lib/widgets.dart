@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'Utils/constant.dart';
 
-
-
 mainScreenAppBarPush(BuildContext context, String title) {
   return AppBar(
     elevation: 0,
@@ -37,4 +35,11 @@ Widget bgImage(BuildContext context, Size size) {
             ),
             fit: BoxFit.fill)),
   );
+}
+
+snackBar(context, text) {
+  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(text),
+    duration: Duration(milliseconds: 300),
+  ));
 }

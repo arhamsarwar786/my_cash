@@ -1,13 +1,14 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:my_cash/controllers/GlobalState.dart';
 
 import '../../Utils/constant.dart';
 import '../../widgets.dart';
 import 'Basic Information/basic_information_1.dart';
 import 'Identity_authentication.dart';
-import 'mobile_bank.dart';
-
+import 'Mobile or Bank/mobile_bank.dart';
+import 'Mobile or Bank/mobile_bank.dart';
 
 class Certifiction extends StatefulWidget {
   const Certifiction({Key? key}) : super(key: key);
@@ -112,8 +113,17 @@ class _CertifictionState extends State<Certifiction> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => BasicInformation()));
+                    if (GlobalState.userDetails != null) {
+                      if (GlobalState.userDetails!.fullName != null) {
+                        snackBar(context, "Already Entered Details");
+                      } else {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BasicInformation()));
+                      }
+                    }else{
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => BasicInformation()));
+                    }
                   },
                   child: Card(
                       shadowColor: primayColor,
@@ -131,8 +141,12 @@ class _CertifictionState extends State<Certifiction> {
                           color: kprimayColor,
                         ),
                         trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.black38,
+                          GlobalState.userDetails != null
+                              ? GlobalState.userDetails!.fullName != null 
+                                  ? Icons.done_outline
+                                  : Icons.arrow_forward_ios
+                              : Icons.arrow_forward_ios,
+                          color: Colors.green,
                         ),
                       )),
                 ),
@@ -141,8 +155,19 @@ class _CertifictionState extends State<Certifiction> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
+                      if (GlobalState.userDetails != null) {
+                      if (GlobalState.userDetails!.isMobile != null) {
+                        snackBar(context, "Already Entered Details");
+                      } else {
+                        Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => Payment()));
+                        
+                      }
+                    }else{
+                        Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Payment()));
+                    }
+                    
                   },
                   child: Card(
                       shadowColor: primayColor,
@@ -160,8 +185,12 @@ class _CertifictionState extends State<Certifiction> {
                           color: kprimayColor,
                         ),
                         trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.black38,
+                          GlobalState.userDetails != null
+                              ? GlobalState.userDetails!.isMobile != null 
+                                  ? Icons.done_outline
+                                  : Icons.arrow_forward_ios
+                              : Icons.arrow_forward_ios,
+                          color: Colors.green,
                         ),
                       )),
                 ),
@@ -170,8 +199,19 @@ class _CertifictionState extends State<Certifiction> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
+                     if (GlobalState.userDetails != null) {
+                      if (GlobalState.userDetails!.cnic != null) {
+                        snackBar(context, "Already Entered Details");
+                      } else {
+                         Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => Identify()));
+                        
+                      }
+                    }else{
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Identify()));
+                    }
+                   
                   },
                   child: Card(
                     shadowColor: primayColor,
@@ -189,8 +229,13 @@ class _CertifictionState extends State<Certifiction> {
                         color: kprimayColor,
                       ),
                       trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.black38,
+                          GlobalState.userDetails != null
+                              ? GlobalState.userDetails!.cnic != null 
+                                  ? Icons.done_outline
+                                  : Icons.arrow_forward_ios
+                              : Icons.arrow_forward_ios,
+                          color: Colors.green,
+                        
                       ),
                     ),
                   ),
