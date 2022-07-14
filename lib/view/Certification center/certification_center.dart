@@ -6,9 +6,10 @@ import 'package:my_cash/controllers/GlobalState.dart';
 import '../../Utils/constant.dart';
 import '../../widgets.dart';
 import 'Basic Information/basic_information_1.dart';
-import 'Identity_authentication.dart';
+
 import 'Mobile or Bank/mobile_bank.dart';
 import 'Mobile or Bank/mobile_bank.dart';
+import 'identity/Identity_authentication.dart';
 
 class Certifiction extends StatefulWidget {
   const Certifiction({Key? key}) : super(key: key);

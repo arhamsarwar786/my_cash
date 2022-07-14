@@ -1,17 +1,11 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:my_cash/controllers/API_MANGER/api_manager.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
 import 'package:my_cash/controllers/image_picker_controller.dart';
 import 'package:my_cash/view/Certification%20center/Basic%20Information/widgets.dart';
 import 'package:my_cash/widgets.dart';
-
-import '../../Utils/constant.dart';
-import '../../controllers/Preferences/preferences.dart';
+import '../../../Utils/constant.dart';
+import '../widgets.dart';
 import 'identity_authentication2.dart';
-import 'widgets.dart';
 
 class Identify extends StatefulWidget {
   const Identify({Key? key}) : super(key: key);

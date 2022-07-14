@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_cash/controllers/GlobalState.dart';
 import 'package:my_cash/controllers/Preferences/preferences.dart';
+import '../../controllers/saving_user_details.dart';
 import '/view/authentication/opt_screen.dart';
 import '../../Utils/constant.dart';
 import '../../controllers/firebaseAuth.dart';
@@ -24,7 +26,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(       
+      child: Scaffold(         
+               
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
@@ -204,14 +207,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                     InkWell(
                       onTap: () {
+                        var number;
 
-                        if (phoneNumber.text.length >= 12 && _value == true) {
-                        // registerUser();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (Context) =>
-                                      OtpScreen(phoneNumber.text)));
+                        if (phoneNumber.text.length >= 10 && _value == true) {
+
+                          if(phoneNumber.text[0] == '0' ){
+                            number = '92${phoneNumber.text}'.split('920');
+                            number = number[1];
+                          }else{
+                            number = phoneNumber.text;
+                          }
+                          print(number);
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> OtpScreen(phoneNumber: number,) ));
+                        
                         } else {
                           snackBar(context,
                               "Please! Check your Phone Number OR Terms and Conditions");

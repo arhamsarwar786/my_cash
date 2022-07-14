@@ -15,6 +15,7 @@ class PackagesModel {
         this.interestAmount,
         this.duration,
         this.description,
+        this.id,
     });
 
     String? packageName;
@@ -22,6 +23,7 @@ class PackagesModel {
     String? interestAmount;
     String? duration;
     String? description;
+    String? id;
 
     factory PackagesModel.fromJson(Map<String, dynamic> json) => PackagesModel(
         packageName: json["package_name"],
@@ -29,6 +31,7 @@ class PackagesModel {
         interestAmount: json["interest_amount"],
         duration: json["duration"],
         description: json["description"],
+        id: json["id"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -37,5 +40,6 @@ class PackagesModel {
         "interest_amount": interestAmount,
         "duration": duration,
         "description": description,
+        "id": id,
     };
 }

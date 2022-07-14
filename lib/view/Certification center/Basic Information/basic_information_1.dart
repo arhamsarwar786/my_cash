@@ -17,6 +17,8 @@ class _BasicInformationState extends State<BasicInformation> {
 
   final fullNameController = TextEditingController();
   final martialStatusController = TextEditingController();
+  final educationController = TextEditingController();
+  final cityController = TextEditingController();
   final provinceController = TextEditingController();
   final addressController = TextEditingController();
 
@@ -34,7 +36,7 @@ class _BasicInformationState extends State<BasicInformation> {
           decoration: BoxDecoration(color: primayColor),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -186,7 +188,7 @@ class _BasicInformationState extends State<BasicInformation> {
                           child: InkWell(
                             onTap: () {
                               setState(() {
-                                isMale = false;
+                                isMale = true;
                               });
                             },
                             child: Container(
@@ -200,9 +202,9 @@ class _BasicInformationState extends State<BasicInformation> {
                                 ),
                                 child: Text("Male",
                                     style: TextStyle(
-                                        color: !isMale
-                                            ? Colors.black
-                                            : Colors.white,
+                                        color: isMale
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontWeight: FontWeight.w700,
                                         fontSize: 13.0))),
                           ),
@@ -214,7 +216,7 @@ class _BasicInformationState extends State<BasicInformation> {
                           child: InkWell(
                             onTap: () {
                               setState(() {
-                                isMale = true;
+                                isMale = false;
                               });
                             },
                             child: Container(
@@ -228,9 +230,9 @@ class _BasicInformationState extends State<BasicInformation> {
                                 ),
                                 child: Text("FeMale",
                                     style: TextStyle(
-                                        color: isMale
-                                            ? Colors.black
-                                            : Colors.white,
+                                        color: !isMale
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontWeight: FontWeight.w700,
                                         fontSize: 13.0))),
                           ),
@@ -300,6 +302,20 @@ class _BasicInformationState extends State<BasicInformation> {
                     height: MediaQuery.of(context).size.height / 70,
                   ),
                   CustomTextField(
+                    title: "Education",
+                    controller: educationController,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 70,
+                  ),
+                  CustomTextField(
+                    title: "City",
+                    controller: cityController,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 70,
+                  ),
+                  CustomTextField(
                     title: "Province",
                     controller: provinceController,
                   ),
@@ -320,11 +336,17 @@ class _BasicInformationState extends State<BasicInformation> {
                           snackBar(context, "Please! Enter Full Name");
                         } else if (martialStatusController.text.isEmpty) {
                           snackBar(context, "Please! Enter Martial Status");
+                        } 
+                        else if (educationController.text.isEmpty) {
+                          snackBar(context, "Please! Enter Education");
+                        } else if (cityController.text.isEmpty) {
+                          snackBar(context, "Please! Enter City");
                         } else if (provinceController.text.isEmpty) {
                           snackBar(context, "Please! Enter Province");
                         } else if (addressController.text.isEmpty) {
                           snackBar(context, "Please! Enter Address");
                         } else {
+                          print(GlobalState.userDetails);
                           if (isMale) {
                             GlobalState.userDetails!.gender = 'M';
                           } else {
@@ -335,6 +357,10 @@ class _BasicInformationState extends State<BasicInformation> {
                               fullNameController.text;
                           GlobalState.userDetails!.martialStatus =
                               martialStatusController.text;
+                              GlobalState.userDetails!.education =
+                              educationController.text;
+                              GlobalState.userDetails!.city =
+                              cityController.text;
                           GlobalState.userDetails!.province =
                               provinceController.text;
                           GlobalState.userDetails!.address =

@@ -170,13 +170,18 @@ saveButton(context, size, isMobile) {
             snackBar(context, "Please! Select Mobile Wallet");
           } else if (mobileAccountController.text.isEmpty ||
               mobileAccountController.text == "" ||
-              mobileAccountController.text.length < 12) {
+              mobileAccountController.text.length < 10) {
             snackBar(context, "Please! Enter Valid Mobile Number");
           } else {
             GlobalState.userDetails!.isMobile = "$isMobile";
             GlobalState.userDetails!.mobileWalletType = selectedWalletType;
             GlobalState.userDetails!.mobileAccountNumber =
                 mobileAccountController.text;
+
+            // for Bank
+            GlobalState.userDetails!.bankName = "";
+            GlobalState.userDetails!.accountNumber = "";
+            GlobalState.userDetails!.branchCode = "";
 
             SavedPreferences.saveUserDetails(
                 jsonEncode(GlobalState.userDetails));
@@ -197,10 +202,13 @@ saveButton(context, size, isMobile) {
               bankBranchCodeController.text == "") {
             snackBar(context, "Please! Enter Branch Code");
           } else {
-            GlobalState.userDetails!.isMobile = isMobile;
+            GlobalState.userDetails!.isMobile = "$isMobile";
             GlobalState.userDetails!.bankName = selectedBank;
             GlobalState.userDetails!.accountNumber = bankAccountController.text;
             GlobalState.userDetails!.branchCode = bankBranchCodeController.text;
+            // for mobile
+            GlobalState.userDetails!.mobileAccountNumber = "";
+            GlobalState.userDetails!.mobileWalletType = "";
 
             SavedPreferences.saveUserDetails(
                 jsonEncode(GlobalState.userDetails));

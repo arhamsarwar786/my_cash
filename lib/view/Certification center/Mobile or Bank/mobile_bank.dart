@@ -145,7 +145,7 @@ class _PaymentState extends State<Payment> {
               // Bank Transfer
               if (!isMobile) BankAccount(),
 
-                saveButton(context,size,isMobile),
+              saveButton(context,size,isMobile),
        
             ],
           ),

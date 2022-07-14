@@ -22,6 +22,25 @@ class SavedPreferences{
   }
 
 
+  /// PACKAGe
+  /// 
+    static savePackageDetails(String data)async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('packageDetails', data);
+  }
+
+  static getPackageDetails()async{
+    var data;
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var package =  pref.getString('packageDetails');
+    if(package != null){
+      data = await jsonDecode(package);
+    }
+    return package;
+  }
+
+
+
 
  static updateUserDetails(Map entry)async{
     var data;

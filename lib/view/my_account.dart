@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_cash/controllers/GlobalState.dart';
 
 
 import '../Utils/constant.dart';
@@ -18,24 +20,21 @@ class MyAccount extends StatefulWidget {
 
 class _MyAccountState extends State<MyAccount> {
   static const _text = [
-    'Certification Center',
-    'Mobile Wallet/Bank Card',
+    'Certification Center',    
     'FAQ',
     'Contact Us',
     'Privacy Policy',
     'Setting',
   ];
   static const _icons = [
-    Icons.manage_accounts,
-    Icons.account_balance,
+    Icons.manage_accounts,    
     Icons.help_center,
     Icons.contacts,
     Icons.policy_outlined,
     Icons.settings,
   ];
   static final _navigationSc = [
-    Certifiction(),
-    Payment(),
+    Certifiction(),    
     FAQ(),
     ContactUs(),
     PrivicyPolicy(),
@@ -74,7 +73,7 @@ class _MyAccountState extends State<MyAccount> {
                           width: MediaQuery.of(context).size.width * 0.30,
                         ),
                         Text(
-                          "Name",
+                          GlobalState.userDetails!.fullName ?? 'USER' ,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -93,7 +92,7 @@ class _MyAccountState extends State<MyAccount> {
                       height: 15,
                     ),
                     Text(
-                      "03062865703",
+                      "${FirebaseAuth.instance.currentUser!.phoneNumber}",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 17,

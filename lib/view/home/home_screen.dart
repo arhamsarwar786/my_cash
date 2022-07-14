@@ -1,17 +1,21 @@
+import 'dart:convert';
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cash/controllers/API_MANGER/api_manager.dart';
-import 'package:my_cash/models/packages_model.dart';
-import 'package:my_cash/view/Certification%20center/certification_center.dart';
-import 'package:my_cash/view/home/widgets.dart';
-import 'package:my_cash/view/my_account.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
 import 'package:my_cash/controllers/Preferences/preferences.dart';
-
+import 'package:my_cash/models/packages_model.dart';
+import 'package:my_cash/models/post_package_model.dart';
+import 'package:my_cash/view/Certification%20center/Basic%20Information/basic_information_2.dart';
+import 'package:my_cash/view/home/widgets.dart';
+import 'package:my_cash/view/my_account.dart';
+import 'package:my_cash/widgets.dart';
 import '../../Utils/constant.dart';
+import '../Certification center/Basic Information/contacts_list.dart';
+import '../Certification center/certification_center.dart';
 import '../FAQ.dart';
-import '../authentication/register_screen.dart';
 import 'drawer.dart';
 
 class Home extends StatefulWidget {
@@ -22,7 +26,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  double _value = 100;
+  double _value = 1000;
 
   bool _hasBeenPressed = false;
   int selectedPackageIndex = 0;
@@ -31,6 +35,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    // GlobalState.userDetails!.phoneNumber =
+    //     FirebaseAuth.instance.currentUser!.phoneNumber;
     getPackagesList();
   }
 
@@ -39,27 +45,12 @@ class _HomeState extends State<Home> {
     setState(() {});
   }
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
     Size size = MediaQuery.of(context).size;
     return SafeArea(
-        child: Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        GlobalState.userDetails!.firstName = "";
-        GlobalState.userDetails!.lastName = "";
-        GlobalState.userDetails!.city = "";
-        GlobalState.userDetails!.bankName = "";
-        GlobalState.userDetails!.accountNumber = "";
-        GlobalState.userDetails!.branchCode = "";
-        GlobalState.userDetails!.phoneNumber = "";
-
-        APIManager().postUserDetails(context);
-        
-        // APIManager().getPackages();
-        // log(GlobalState.userDetails!.toJson().toString());
-
-      }),
+      child: Scaffold(
       resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       drawer: Menu(),
@@ -110,7 +101,7 @@ class _HomeState extends State<Home> {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => FAQ()));
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.help,
                           size: 25,
                           color: Colors.white,
@@ -129,7 +120,7 @@ class _HomeState extends State<Home> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   child: dataList == null
-                      ? CircularProgressIndicator.adaptive()
+                      ? const CircularProgressIndicator.adaptive()
                       : Container(
                           height: size.height * 0.50,
                           width: size.width,
@@ -143,7 +134,8 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  "${dataList![selectedPackageIndex].packageName}".toUpperCase(),
+                                  "${dataList![selectedPackageIndex].packageName}"
+                                      .toUpperCase(),
                                   style: TextStyle(
                                       color: primayColor,
                                       fontSize: 30,
@@ -165,7 +157,7 @@ class _HomeState extends State<Home> {
                                       fontWeight: FontWeight.bold),
                                 ),
 
-                                Text(
+                                const Text(
                                   "Loan Amount",
                                   style: TextStyle(
                                       color: Colors.black,
@@ -174,7 +166,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 Text(
                                   " ${_value}PKR",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w800),
@@ -185,7 +177,9 @@ class _HomeState extends State<Home> {
                                   children: [
                                     Slider(
                                       min: 0.0,
-                                      max: 1000.0,
+                                      max: double.parse(
+                                          dataList![selectedPackageIndex]
+                                              .packageAmount!),
                                       inactiveColor: Colors.grey,
                                       activeColor: primayColor,
                                       value: _value,
@@ -250,14 +244,15 @@ class _HomeState extends State<Home> {
                                           onPressed: () {
                                             setState(() {
                                               selectedPackageIndex = i;
+                                              _value = 1000;
                                             });
                                           },
                                           child: Text(
                                             "${dataList![i].duration}",
-                                            style:
-                                                TextStyle(color: selectedPackageIndex == i
-                                                      ? Colors.white
-                                                      : Colors.black),
+                                            style: TextStyle(
+                                                color: selectedPackageIndex == i
+                                                    ? Colors.white
+                                                    : Colors.black),
                                           )),
                                   ],
                                 )
@@ -268,13 +263,33 @@ class _HomeState extends State<Home> {
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (Context) => Certifiction()));
+                  if (dataList == null) {
+                    snackBar(context, "Select Package First");
+                  } else {
+                    GlobalState.userDetails!.phoneNumber =
+                        FirebaseAuth.instance.currentUser!.phoneNumber;
+                    GlobalState.postPackage = PostPackageModel.fromJson({
+                      "id": dataList![selectedPackageIndex].id,
+                      "userId": "",
+                      "userName": "",
+                      "packageName":
+                          dataList![selectedPackageIndex].packageName,
+                      "amount": "$_value",
+                      "interestAmount":
+                          dataList![selectedPackageIndex].interestAmount,
+                      "duration": dataList![selectedPackageIndex].duration,
+                    });
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (Context) => Certifiction()));
+                  }
                 },
                 child: Card(
                   elevation: 10,
@@ -291,7 +306,7 @@ class _HomeState extends State<Home> {
                           primayColor,
                         ]),
                       ),
-                      child: Text("Apply",
+                      child: const Text("Apply",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w900,

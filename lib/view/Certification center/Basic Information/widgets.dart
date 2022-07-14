@@ -38,7 +38,7 @@ class CustomTextField extends StatelessWidget {
               color: primayColor, fontSize: 15, fontWeight: FontWeight.w500),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height / 70,
+          height: 5,
         ),
         TextField(
           controller: controller,
@@ -52,23 +52,23 @@ class CustomTextField extends StatelessWidget {
             filled: true,
             errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             disabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             hintText: "Enter $title",
             hintStyle: TextStyle(color: Colors.black38, fontSize: 16),
