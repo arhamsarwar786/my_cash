@@ -10,7 +10,7 @@ String postPackageModelToJson(PostPackageModel data) => json.encode(data.toJson(
 
 class PostPackageModel {
     PostPackageModel({
-        this.id,
+        this.packageId,
         this.userId,
         this.userName,
         this.packageName,
@@ -19,7 +19,7 @@ class PostPackageModel {
         this.duration,
     });
 
-    String? id;
+    String? packageId;
     String? userId;
     String? userName;
     String? packageName;
@@ -28,7 +28,7 @@ class PostPackageModel {
     String? duration;
 
     factory PostPackageModel.fromJson(Map<String, dynamic> json) => PostPackageModel(
-        id: json["id"],
+        packageId: json["packageId"],
         userId: json["userId"],
         userName: json["userName"],
         packageName: json["packageName"],
@@ -38,7 +38,7 @@ class PostPackageModel {
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
+        "packageId": packageId,
         "userId": userId,
         "userName": userName,
         "packageName": packageName,

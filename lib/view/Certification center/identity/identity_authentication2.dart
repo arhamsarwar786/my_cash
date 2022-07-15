@@ -215,6 +215,7 @@ class _Identify2State extends State<Identify2> {
 
                                     SavedPreferences.savePackageDetails(
                                         jsonEncode(GlobalState.postPackage));
+                                        print(GlobalState.postPackage!.toJson());
                                     SavedPreferences.saveUserDetails(
                                         jsonEncode(GlobalState.userDetails));
 

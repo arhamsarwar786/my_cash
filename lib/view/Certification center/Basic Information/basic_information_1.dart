@@ -16,7 +16,6 @@ class _BasicInformationState extends State<BasicInformation> {
   // Controllers
 
   final fullNameController = TextEditingController();
-  final martialStatusController = TextEditingController();
   final educationController = TextEditingController();
   final cityController = TextEditingController();
   final provinceController = TextEditingController();
@@ -228,7 +227,7 @@ class _BasicInformationState extends State<BasicInformation> {
                                       BorderRadius.all(Radius.circular(20.0)),
                                   color: isMale ? Colors.white : primayColor,
                                 ),
-                                child: Text("FeMale",
+                                child: Text("Female",
                                     style: TextStyle(
                                         color: !isMale
                                             ? Colors.white
@@ -288,15 +287,66 @@ class _BasicInformationState extends State<BasicInformation> {
                   //   ),
                   // ),
                   CustomTextField(
-                    title: "Full Name",
-                    controller: fullNameController,
+                      title: "Full Name",
+                      controller: fullNameController,
+                      type: TextInputType.name),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 70 - 5,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Text(
+                      "Martial Status",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: size.width * 0.04,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 70,
-                  ),
-                  CustomTextField(
-                    title: "Martial Status",
-                    controller: martialStatusController,
+                    height: 40,
+                    child: DropdownButtonFormField(
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primayColor, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primayColor, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primayColor, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primayColor, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "Martial Status",
+                          labelStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: size.width * 0.036,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        dropdownColor: Colors.white,
+                        // value: selectedWalletType,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedMarial = newValue!;
+                          });
+                        },
+                        items: marialList),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 70,
@@ -334,10 +384,9 @@ class _BasicInformationState extends State<BasicInformation> {
                       onTap: () {
                         if (fullNameController.text.isEmpty) {
                           snackBar(context, "Please! Enter Full Name");
-                        } else if (martialStatusController.text.isEmpty) {
+                        } else if (selectedMarial == null ||   selectedMarial!.isEmpty) {
                           snackBar(context, "Please! Enter Martial Status");
-                        } 
-                        else if (educationController.text.isEmpty) {
+                        } else if (educationController.text.isEmpty) {
                           snackBar(context, "Please! Enter Education");
                         } else if (cityController.text.isEmpty) {
                           snackBar(context, "Please! Enter City");
@@ -356,11 +405,10 @@ class _BasicInformationState extends State<BasicInformation> {
                           GlobalState.userDetails!.fullName =
                               fullNameController.text;
                           GlobalState.userDetails!.martialStatus =
-                              martialStatusController.text;
-                              GlobalState.userDetails!.education =
+                              selectedMarial;
+                          GlobalState.userDetails!.education =
                               educationController.text;
-                              GlobalState.userDetails!.city =
-                              cityController.text;
+                          GlobalState.userDetails!.city = cityController.text;
                           GlobalState.userDetails!.province =
                               provinceController.text;
                           GlobalState.userDetails!.address =
@@ -399,5 +447,16 @@ class _BasicInformationState extends State<BasicInformation> {
             ))
       ])),
     ));
+  }
+
+  String? selectedMarial;
+  List<DropdownMenuItem<String>> get marialList {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Single"), value: "single"),
+      DropdownMenuItem(child: Text("Married"), value: "married"),
+      DropdownMenuItem(child: Text("Widowed"), value: "widowed"),
+      DropdownMenuItem(child: Text("Divorced"), value: "divorced"),
+    ];
+    return menuItems;
   }
 }

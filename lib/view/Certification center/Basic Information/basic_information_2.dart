@@ -207,15 +207,15 @@ class _BasicInformation2State extends State<BasicInformation2> {
                   ),
                 ),
                 if (contactsList!.isEmpty)
-                 Container(
-                  height: 100,
-                   child: const Center(
+                  Container(
+                    height: 100,
+                    child: const Center(
                       child: Text("Please Add Contacts"),
                     ),
-                 )
+                  )
                 else
                   for (int i = 0; i < contactsList!.length; i++)
-                    Container(
+                    SizedBox(
                       width: size.width,
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -227,7 +227,7 @@ class _BasicInformation2State extends State<BasicInformation2> {
                               style: TextStyle(
                                   color: primayColor,
                                   fontSize: 15,
-                                  fontWeight: FontWeight.w500),
+                                  fontWeight: FontWeight.w700),
                             ),
                             Padding(
                               padding:
@@ -253,26 +253,66 @@ class _BasicInformation2State extends State<BasicInformation2> {
                                       children: [
                                         // RELATIONSHIP //
 
+                                   
                                         SizedBox(
                                           height: 40,
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: primayColor, width: 2),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  "${contactsList![i].relationship}"),
-                                            ),
-                                          ),
+                                          child: DropdownButtonFormField(
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        vertical: 10.0,
+                                                        horizontal: 10.0),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: primayColor,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                disabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: primayColor,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: primayColor,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: primayColor,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                hintText: "Select",
+                                                labelStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize:
+                                                        size.width * 0.036,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              dropdownColor: Colors.white,
+                                              // value: selectedWalletType,
+                                              onChanged: (String? newValue) {
+                                                setState(() {
+                                                  selectedRelation = newValue!;
+                                                });
+                                              },
+                                              items: relationList),
                                         ),
+
                                         // Name
                                         SizedBox(
                                           height: 40,
@@ -284,7 +324,7 @@ class _BasicInformation2State extends State<BasicInformation2> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
-                                                  color: primayColor, width: 2),
+                                                  color: primayColor, width: 1),
                                             ),
                                             child: Padding(
                                               padding:
@@ -306,7 +346,7 @@ class _BasicInformation2State extends State<BasicInformation2> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               border: Border.all(
-                                                  color: primayColor, width: 2),
+                                                  color: primayColor, width: 1),
                                             ),
                                             child: Padding(
                                               padding:
@@ -372,6 +412,18 @@ class _BasicInformation2State extends State<BasicInformation2> {
             ),
           )),
     );
+  }
+    String? selectedRelation;
+  List<DropdownMenuItem<String>> get relationList {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Father"), value: "father"),
+      DropdownMenuItem(child: Text("Mother"), value: "mother"),
+      DropdownMenuItem(child: Text("Brother"), value: "brother"),
+      DropdownMenuItem(child: Text("Sister"), value: "sister"),
+      DropdownMenuItem(child: Text("Friend"), value: "friend"),
+      DropdownMenuItem(child: Text("Other"), value: "other"),
+    ];
+    return menuItems;
   }
 }
 

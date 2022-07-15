@@ -1,12 +1,7 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
-
-
+import 'package:my_cash/controllers/GlobalState.dart';
+import 'package:my_cash/view/status%20checker/status_screen.dart';
 import '../../Utils/constant.dart';
 import '../Certification center/certification_center.dart';
 import '../FAQ.dart';
@@ -24,6 +19,7 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
   static const _menuTitles = [
     'Certification Center',
+    'Load Status',
     'Contact Us',
     'Setting',
     'FAQ',
@@ -31,12 +27,13 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
   ];
   static const _icons = [
     Icons.manage_accounts,
+    Icons.group_remove_outlined,
     Icons.contacts,
     Icons.settings,
     Icons.help_center,
     Icons.share,
   ];
-  var _navigationSc = [Certifiction(), ContactUs(), SettingScreen(), FAQ(), Share()];
+  var _navigationSc = [Certifiction(),StatusScreen(), ContactUs(), SettingScreen(), FAQ(), Share()];
 
   static const _initialDelayTime = Duration(milliseconds: 50);
   static const _itemSlideTime = Duration(milliseconds: 600);
@@ -116,8 +113,9 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text("Irfan Haider"),
-                            Text("0306******98"),
+                            Text(GlobalState.userDetails!.fullName?? 'USER' ),
+                            
+                            Text("${FirebaseAuth.instance.currentUser!.phoneNumber}"),
                           ],
                         )
                       ],

@@ -46,8 +46,8 @@ class _BankAccountState extends State<BankAccount> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               "Bank Name",
               style: TextStyle(
@@ -57,40 +57,37 @@ class _BankAccountState extends State<BankAccount> {
               ),
             ),
           ),
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 5),
-              child: SizedBox(
-                height: 50,
-                child: DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: primayColor, width: 1),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: primayColor, width: 1),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      label: const Text("Bank Name"),
-                      labelStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: size.width * 0.036,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    dropdownColor: Colors.white,
-                    // value: selectedWalletType,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedBank = newValue!;
-                      });
-                    },
-                    items: bankNamesList),
-              )),
           SizedBox(
+            height: 40,
+            child: DropdownButtonFormField(
+                decoration: InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: primayColor, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: primayColor, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  label: const Text("Bank Name"),
+                  labelStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: size.width * 0.036,
+                      fontWeight: FontWeight.w500),
+                ),
+                dropdownColor: Colors.white,
+                // value: selectedWalletType,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedBank = newValue!;
+                  });
+                },
+                items: bankNamesList),
+          ), SizedBox(
             height: 20,
           ),
           CustomTextField(title: "Bank Account Number",controller: bankAccountController,),

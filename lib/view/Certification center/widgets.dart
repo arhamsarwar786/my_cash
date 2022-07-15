@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
 import 'package:my_cash/controllers/Preferences/preferences.dart';
+import 'package:my_cash/view/Certification%20center/certification_center.dart';
 import 'package:my_cash/view/home/home_screen.dart';
 import 'package:my_cash/widgets.dart';
 
@@ -187,10 +188,10 @@ saveButton(context, size, isMobile) {
                 jsonEncode(GlobalState.userDetails));
             snackBar(context, "Mobile Details Saved!");
 
-            Navigator.pushAndRemoveUntil(
+            Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Home()),
-                (Route<dynamic> route) => false);
+                MaterialPageRoute(builder: (context) => Certifiction()));
+           
           }
         } else {
           if (selectedBank.isEmpty || selectedBank == "") {
@@ -213,12 +214,12 @@ saveButton(context, size, isMobile) {
             SavedPreferences.saveUserDetails(
                 jsonEncode(GlobalState.userDetails));
             snackBar(context, "Bank Details Saved!");
-            Navigator.pushAndRemoveUntil(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Home(),
-                ),
-                (Route<dynamic> route) => false);
+                  builder: (context) => Certifiction(),
+                ));
+                
           }
         }
       },

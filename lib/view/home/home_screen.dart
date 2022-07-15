@@ -51,6 +51,13 @@ class _HomeState extends State<Home> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        // floatingActionButton: FloatingActionButton(onPressed: ()async{
+        //   SavedPreferences.clearPreference();
+        //   print("CLERED");
+        //   // GlobalState.postPackage = postPackageModelFromJson(await SavedPreferences.getPackageDetails());
+        //   // print(GlobalState.postPackage!.toJson());
+        //   // APIManager().postPackageDetail(context);
+        // }),
       resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       drawer: Menu(),
@@ -274,7 +281,7 @@ class _HomeState extends State<Home> {
                     GlobalState.userDetails!.phoneNumber =
                         FirebaseAuth.instance.currentUser!.phoneNumber;
                     GlobalState.postPackage = PostPackageModel.fromJson({
-                      "id": dataList![selectedPackageIndex].id,
+                      "packageId": dataList![selectedPackageIndex].id,
                       "userId": "",
                       "userName": "",
                       "packageName":

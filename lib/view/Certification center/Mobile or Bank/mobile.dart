@@ -54,18 +54,18 @@ class _MobileAccountState extends State<MobileAccount> {
             ),
           ),
           SizedBox(
-            height: 50,
+            height: 40,
             child: DropdownButtonFormField(
                 decoration: InputDecoration(
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: primayColor, width: 1),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: primayColor, width: 1),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
                   fillColor: Colors.white,

@@ -24,8 +24,8 @@ class CircularNumbering extends StatelessWidget {
 }
 
 class CustomTextField extends StatelessWidget {
-  final title,controller;
-  CustomTextField({this.controller,this.title});
+  final title,controller,type;
+  CustomTextField({this.controller,this.title,this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -35,43 +35,47 @@ class CustomTextField extends StatelessWidget {
         Text(
           "$title",
           style: TextStyle(
-              color: primayColor, fontSize: 15, fontWeight: FontWeight.w500),
+              color: primayColor, fontSize: 15, fontWeight: FontWeight.w700),
         ),
         SizedBox(
           height: 5,
         ),
-        TextField(
-          controller: controller,
-          keyboardType: TextInputType.name,
-          cursorColor: primayColor,
-          autofocus: false,
-          decoration: InputDecoration(
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 25),
-            fillColor: Colors.white,
-            filled: true,
-            errorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.red),
-              borderRadius: BorderRadius.circular(10.0),
+        Container(
+          color: Colors.white,
+          height: 40,
+          child: TextField(          
+            controller: controller,
+            keyboardType: type,
+            cursorColor: primayColor,
+            autofocus: false,
+            decoration: InputDecoration(              
+              contentPadding:
+                  const EdgeInsets.only( left: 10,right: 10),
+              fillColor: Colors.white,
+              // filled: true,
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: primayColor, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+              disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: primayColor, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+              border: OutlineInputBorder(
+                    borderSide: BorderSide(color: primayColor, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+              enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: primayColor, width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+              hintText: "Enter $title",
+              hintStyle: TextStyle(color: Colors.black38, fontSize: 16),
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            hintText: "Enter $title",
-            hintStyle: TextStyle(color: Colors.black38, fontSize: 16),
           ),
         ),
       ],

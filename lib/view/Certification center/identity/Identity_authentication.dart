@@ -228,7 +228,7 @@ class _IdentifyState extends State<Identify> {
                                     onTap: () {
                                       setState(() {});
                                       if (cnicController.text.isEmpty ||
-                                          cnicController.text.length != 14) {
+                                          cnicController.text.length != 13) {
                                         snackBar(context,
                                             "Please! Enter Valid CNIC");
                                       } else if (dobController.text.isEmpty) {

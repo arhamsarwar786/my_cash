@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
 
 import 'package:my_cash/controllers/image_picker_controller.dart';
+import 'package:my_cash/models/loan_status_model.dart';
 import 'package:my_cash/models/packages_model.dart';
 
 class APIManager {
@@ -106,4 +107,27 @@ class APIManager {
       print(e);
     });
   }
+
+
+  getLoadStatus({cnic}) async {
+
+    try {
+    var detail = await http
+        .post(
+            Uri.parse(
+                "https://www.geoinvest.pk/loan_dashboad/api/laon_users_api.php"),
+            body: {"user_cnic":cnic} );
+          var res = loanStatusModelFromJson(detail.body);
+          return res;
+      
+    } catch (e) {
+      print(e);
+    }
+
+          // print(res.toJson());
+
+  }
+
+
+
 }
