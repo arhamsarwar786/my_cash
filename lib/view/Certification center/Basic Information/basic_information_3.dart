@@ -189,6 +189,7 @@ class _BasicInformation3State extends State<BasicInformation3> {
                     CustomTextField(
                       title: "Monthly Income",
                       controller: incomeController,
+                      type: TextInputType.number,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,
@@ -196,6 +197,7 @@ class _BasicInformation3State extends State<BasicInformation3> {
                     CustomTextField(
                       title: "Designation",
                       controller: designationController,
+                      type: TextInputType.text,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,
@@ -203,6 +205,7 @@ class _BasicInformation3State extends State<BasicInformation3> {
                     CustomTextField(
                       title: "Company Name",
                       controller: companyNameController,
+                      type: TextInputType.text,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,
@@ -210,6 +213,7 @@ class _BasicInformation3State extends State<BasicInformation3> {
                     CustomTextField(
                       title: "Company Address",
                       controller: companyAddressController,
+                      type: TextInputType.text,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,
@@ -217,6 +221,7 @@ class _BasicInformation3State extends State<BasicInformation3> {
                     CustomTextField(
                       title: "Company Telephone",
                       controller: companyTelephoneController,
+                      type: TextInputType.phone,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 70,

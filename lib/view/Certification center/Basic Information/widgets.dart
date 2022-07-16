@@ -43,14 +43,17 @@ class CustomTextField extends StatelessWidget {
         Container(
           color: Colors.white,
           height: 40,
-          child: TextField(          
+          child: TextField(
+            textAlignVertical: TextAlignVertical.center,
             controller: controller,
             keyboardType: type,
             cursorColor: primayColor,
             autofocus: false,
-            decoration: InputDecoration(              
+            
+            decoration: InputDecoration(    
+              // isDense: true,
               contentPadding:
-                  const EdgeInsets.only( left: 10,right: 10),
+                  const EdgeInsets.only(top: 20,left: 10,right: 10),
               fillColor: Colors.white,
               // filled: true,
               errorBorder: OutlineInputBorder(

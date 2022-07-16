@@ -17,13 +17,16 @@ class StatusScreen extends StatefulWidget {
 class _StatusScreenState extends State<StatusScreen> {
   List<LoanStatusModel>? details;
   getLoanStatus() async {
-    details =
-        await APIManager().getLoadStatus(cnic: GlobalState.userDetails!.cnic);
-        
-    setState(() {
-      
-    });
-    
+
+    print(GlobalState.userDetails!);
+    if (GlobalState.userDetails!.cnic == null) {
+      details = addCNICDialog(context);
+    } else {
+      details =
+          await APIManager().getLoadStatus(cnic: GlobalState.userDetails!.cnic);
+
+      setState(() {});
+    }
   }
 
   @override
@@ -34,53 +37,70 @@ class _StatusScreenState extends State<StatusScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(    
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: primayColor,
         title: Text("Loan Status"),
       ),
       body: Column(
         children: [
-          SizedBox(
-            height: 30
-          ),
+          SizedBox(height: 30),
           Text(
             "Applied LOAN Details",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           details == null
               ? SizedBox(
-                height: 300,
-                child: Center(
-                    child: CircularProgressIndicator.adaptive(
-                      
-                    ),
+                  height: 300,
+                  child: Center(
+                    child: CircularProgressIndicator.adaptive(),
                   ),
-              )
-              : details!.isEmpty ? Text("No Request") : ListView.builder(
-                shrinkWrap: true,
-                itemCount: details!.length,
-                itemBuilder: (context,index) {
-                  LoanStatusModel data = details![index];
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    child: Card(
-                      child: Column(
-                          children: [
-                            RowShow(title: "Package Name", value: data.packageName ,),
-                            RowShow(title: "Package Amount", value: data.amount ,),
-                            RowShow(title: "CNIC", value: data.userCnic ,),
-                            RowShow(title: "Name", value: data.userName ,),
-                            RowShow(title: "Interest", value: data.interestAmount ,),
-                            RowShow(title: "Duration", value: data.duration ,),
-                            StatusViewer(title: "Status", value: data.status ,),
-                            
-                          ],
-                        ),
-                    ),
-                  );
-                }
-              )
+                )
+              : details!.isEmpty
+                  ? Center(child: Text("No Request"))
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: details!.length,
+                      itemBuilder: (context, index) {
+                        LoanStatusModel data = details![index];
+                        return Container(
+                          margin: EdgeInsets.all(10),
+                          child: Card(
+                            child: Column(
+                              children: [
+                                RowShow(
+                                  title: "Package Name",
+                                  value: data.packageName,
+                                ),
+                                RowShow(
+                                  title: "Package Amount",
+                                  value: data.amount,
+                                ),
+                                RowShow(
+                                  title: "CNIC",
+                                  value: data.userCnic,
+                                ),
+                                RowShow(
+                                  title: "Name",
+                                  value: data.userName,
+                                ),
+                                RowShow(
+                                  title: "Interest",
+                                  value: data.interestAmount,
+                                ),
+                                RowShow(
+                                  title: "Duration",
+                                  value: data.duration,
+                                ),
+                                StatusViewer(
+                                  title: "Status",
+                                  value: data.status,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      })
         ],
       ),
     );

@@ -110,7 +110,6 @@ class APIManager {
 
 
   getLoadStatus({cnic}) async {
-
     try {
     var detail = await http
         .post(
@@ -122,11 +121,24 @@ class APIManager {
       
     } catch (e) {
       print(e);
-    }
-
-          // print(res.toJson());
-
+    }          
   }
+
+  cnicChecker({cnic}) async {
+    try {
+    var detail = await http
+        .post(
+            Uri.parse(
+                "https://www.geoinvest.pk/loan_dashboad/api/check_cnic.php"),
+            body: {"user_cnic":cnic} );
+          var res = detail.body;
+          return res;
+      
+    } catch (e) {
+      print(e);
+    }          
+  }
+
 
 
 

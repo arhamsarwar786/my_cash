@@ -25,14 +25,7 @@ class _Identify2State extends State<Identify2> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
-        child: Scaffold(
-            floatingActionButton: FloatingActionButton(onPressed: () {
-              GlobalState.userDetails!.phoneNumber =
-                  FirebaseAuth.instance.currentUser!.phoneNumber;
-              GlobalState.userDetails!.firstName = "MOBILE";
-              GlobalState.userDetails!.lastName = "MOBILE 2";
-              log(GlobalState.userDetails!.toJson().toString());
-            }),
+        child: Scaffold(           
             body: SingleChildScrollView(
               child: Column(
                 children: [

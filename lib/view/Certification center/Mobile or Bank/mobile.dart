@@ -88,7 +88,10 @@ class _MobileAccountState extends State<MobileAccount> {
             height: 20,
           ),
 
-          CustomTextField(title: "Mobile Account Number",controller: mobileAccountController,),
+          CustomTextField(title: "Mobile Account Number",controller: mobileAccountController,
+          type: TextInputType.number,
+          
+          ),
           SizedBox(
             height: 40,
           ),

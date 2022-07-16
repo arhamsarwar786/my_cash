@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
-import 'package:my_cash/view/Certification%20center/Basic%20Information/contacts_list.dart';
+import 'package:my_cash/models/contact_detail.dart';
 import 'package:my_cash/widgets.dart';
+
 import '../../../Utils/constant.dart';
-import '../../../models/contacts_model.dart';
-import '../../../models/userDetailModel.dart';
 import 'basic_information_3.dart';
 
 class BasicInformation2 extends StatefulWidget {
@@ -17,7 +16,37 @@ class BasicInformation2 extends StatefulWidget {
 }
 
 class _BasicInformation2State extends State<BasicInformation2> {
-  List<SecondaryContact>? contactsList = [];
+  final relationshipController = TextEditingController();
+  final nameController = TextEditingController();
+  final numberController = TextEditingController();
+
+  List<ContactDetail> contacts = [];
+  ContactDetail? contact;
+
+  addContact() {
+    contact =
+        ContactDetail.fromJson({"relation": "", "name": "", "number": ""});
+    setState(() {
+      contacts.add(contact!);
+    });
+    //   if(relationshipController.text.isEmpty &&
+    //   nameController.text.isEmpty &&
+    //   numberController.text.isEmpty){
+    //     snackBar(context, "Please! fill all fields");
+    //   }else{
+    //  contact =  ContactDetail.fromJson({
+    //     "relation":relationshipController.text,
+    //     "name":nameController.text,
+    //     "number":numberController.text
+    //   });
+    //   contacts.add(contact!);
+    //   relationshipController.clear();
+    //   nameController.clear();
+    //   numberController.clear();
+    //   }
+
+    print(contacts);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,33 +54,15 @@ class _BasicInformation2State extends State<BasicInformation2> {
     return SafeArea(
       child: Scaffold(
           floatingActionButton: FloatingActionButton(
-            backgroundColor: primayColor,
-            tooltip: "ADD CONTACT",
-            child: const Icon(
-              Icons.add,
-            ),
-            onPressed: () async {
-              var contact = await Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ContactsList()));
-              // print(contact);
-              if (contact != null) {
-                var selectedContact = SecondaryContact.fromJson(contact);
-                if (contactsList!.contains(selectedContact.number)) {
-                  snackBar(context, "Already Added");
-                } else {
-                  contactsList!.add(selectedContact);
-                }
-              }
-
-              setState(() {});
-            },
-          ),
+              backgroundColor: primayColor,
+              child: Icon(Icons.add),
+              onPressed: () {
+                addContact();
+              }),
           body: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  // height: MediaQuery.of(context).size.height * 0.25,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(color: primayColor),
                   child: Column(
@@ -206,16 +217,17 @@ class _BasicInformation2State extends State<BasicInformation2> {
                     ],
                   ),
                 ),
-                if (contactsList!.isEmpty)
+
+                // Contacts
+                for (int i = 0; i < contacts.length; i++)
+
+                  contacts.isEmpty ?
                   Container(
                     height: 100,
-                    child: const Center(
-                      child: Text("Please Add Contacts"),
-                    ),
-                  )
-                else
-                  for (int i = 0; i < contactsList!.length; i++)
-                    SizedBox(
+                    child: Center(child: Text("Please! Add Contacts"),))
+                   :
+                
+                  Container(
                       width: size.width,
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -251,86 +263,112 @@ class _BasicInformation2State extends State<BasicInformation2> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        // RELATIONSHIP //
+                                        // ....................................
 
-                                   
                                         SizedBox(
                                           height: 40,
-                                          child: DropdownButtonFormField(
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        vertical: 10.0,
-                                                        horizontal: 10.0),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: primayColor,
-                                                      width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                disabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: primayColor,
-                                                      width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                border: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: primayColor,
-                                                      width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: primayColor,
-                                                      width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                                hintText: "Select",
-                                                labelStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize:
-                                                        size.width * 0.036,
-                                                    fontWeight:
-                                                        FontWeight.w500),
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              contacts[i].relation = value;
+                                            },
+                                            keyboardType: TextInputType.name,
+                                            cursorColor: primayColor,
+                                            autofocus: false,
+                                            decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.red),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
                                               ),
-                                              dropdownColor: Colors.white,
-                                              // value: selectedWalletType,
-                                              onChanged: (String? newValue) {
-                                                setState(() {
-                                                  selectedRelation = newValue!;
-                                                });
-                                              },
-                                              items: relationList),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              disabledBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              hintText: "Relationshinp",
+                                              hintStyle: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 16),
+                                            ),
+                                          ),
                                         ),
-
                                         // Name
                                         SizedBox(
                                           height: 40,
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: primayColor, width: 1),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  "${contactsList![i].name}"),
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              contacts[i].name = value;
+                                            },
+                                            keyboardType: TextInputType.name,
+                                            cursorColor: primayColor,
+                                            autofocus: false,
+                                            decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.red),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              disabledBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              hintText: "Name",
+                                              hintStyle: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 16),
                                             ),
                                           ),
                                         ),
@@ -338,21 +376,54 @@ class _BasicInformation2State extends State<BasicInformation2> {
                                         // number
                                         SizedBox(
                                           height: 40,
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              border: Border.all(
-                                                  color: primayColor, width: 1),
-                                            ),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  "${contactsList![i].number}"),
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              contacts[i].number = value;
+                                            },
+                                            keyboardType: TextInputType.phone,
+                                            cursorColor: primayColor,
+                                            autofocus: false,
+                                            decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10),
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.red),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              disabledBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              hintText: " Mobile Number",
+                                              hintStyle: TextStyle(
+                                                  color: Colors.black38,
+                                                  fontSize: 16),
                                             ),
                                           ),
                                         ),
@@ -367,19 +438,17 @@ class _BasicInformation2State extends State<BasicInformation2> {
                             ),
                           ],
                         ),
-                      ),
-                    ),
+                      )),
 
-                /// Next
+                // Next
                 Center(
                   child: InkWell(
                     onTap: () {
-                      if (contactsList!.isEmpty) {
-                        snackBar(context, "Please! Add Emergency Contacts");
+                      if (contacts.isEmpty || contacts.length == 1) {
+                        snackBar(context, "Please! Add atleast 2 Contacts");
                       } else {
                         GlobalState.userDetails!.secondaryContacts =
-                            jsonEncode(contactsList);
-                        // print(GlobalState.userDetails!.toJson());
+                            jsonEncode(contacts);
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => BasicInformation3()));
                       }
@@ -413,221 +482,4 @@ class _BasicInformation2State extends State<BasicInformation2> {
           )),
     );
   }
-    String? selectedRelation;
-  List<DropdownMenuItem<String>> get relationList {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Father"), value: "father"),
-      DropdownMenuItem(child: Text("Mother"), value: "mother"),
-      DropdownMenuItem(child: Text("Brother"), value: "brother"),
-      DropdownMenuItem(child: Text("Sister"), value: "sister"),
-      DropdownMenuItem(child: Text("Friend"), value: "friend"),
-      DropdownMenuItem(child: Text("Other"), value: "other"),
-    ];
-    return menuItems;
-  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Stack(
-//           children: [
-//             Container(
-//               height: MediaQuery.of(context).size.height,
-//               width: MediaQuery.of(context).size.width,
-//               decoration: BoxDecoration(
-//                   image: DecorationImage(
-//                       image: AssetImage("assets/images/bgimage.png"),
-//                       fit: BoxFit.fill)),
-//               child: Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 10),
-//                 child: SingleChildScrollView(
-//                   child: Column(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.start,
-//                         children: [
-//                           IconButton(
-//                             onPressed: () {
-//                               Navigator.pop(context);
-//                             },
-//                             iconSize: 20,
-//                             icon: const Icon(
-//                               Icons.arrow_back_ios,
-//                               color: Colors.white,
-//                             ),
-//                           ),
-//                           SizedBox(
-//                             width: MediaQuery.of(context).size.width * 0.15,
-//                           ),
-//                           Text(
-//                             "Contact Information",
-//                             style: TextStyle(
-//                                 color: Colors.white,
-//                                 fontSize: 20,
-//                                 fontWeight: FontWeight.w700),
-//                           ),
-//                         ],
-//                       ),
-//                       SizedBox(
-//                         height: 15,
-//                       ),
-//                       //  Header TABS ..............
-
-//                       Padding(
-//                         padding: const EdgeInsets.only(
-//                           left: 20.0,
-//                         ),
-//                         child: Row(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Container(
-//                               width: MediaQuery.of(context).size.width / 5,
-//                               child: Column(
-//                                 children: [
-//                                   CircleAvatar(
-//                                     backgroundColor: kprimayColor,
-//                                     child: CircleAvatar(
-//                                         backgroundColor: Colors.green,
-//                                         child: Image(
-//                                           image: AssetImage(
-//                                               "assets/images/tick.png"),
-//                                         )),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                             Container(
-//                               height: 40,
-//                               width: 50,
-//                               child: Column(
-//                                 mainAxisAlignment: MainAxisAlignment.center,
-//                                 children: const [
-//                                   Divider(
-//                                     height: 10,
-//                                     color: Colors.grey,
-//                                     thickness: 2,
-//                                   )
-//                                 ],
-//                               ),
-//                             ),
-//                             Container(
-//                               width: MediaQuery.of(context).size.width / 5,
-//                               child: Column(children: [
-//                                 CircleAvatar(
-//                                   backgroundColor: kprimayColor,
-//                                   child: Text(
-//                                     "2",
-//                                     style: TextStyle(
-//                                         color: Colors.black,
-//                                         fontSize: 18,
-//                                         fontWeight: FontWeight.bold),
-//                                   ),
-//                                 ),
-//                               ]),
-//                             ),
-//                             Container(
-//                               height: 40,
-//                               width: 50,
-//                               child: Column(
-//                                 mainAxisAlignment: MainAxisAlignment.center,
-//                                 children: const [
-//                                   Divider(
-//                                     height: 10,
-//                                     color: Colors.grey,
-//                                     thickness: 2,
-//                                   )
-//                                 ],
-//                               ),
-//                             ),
-//                             Container(
-//                               width: MediaQuery.of(context).size.width / 5,
-//                               child: Column(
-//                                 children: [
-//                                   const CircleAvatar(
-//                                     backgroundColor: Colors.black54,
-//                                     radius: 20,
-//                                     child: Text(
-//                                       "3",
-//                                       style: TextStyle(
-//                                           color: Colors.white,
-//                                           fontSize: 15,
-//                                           fontWeight: FontWeight.bold),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       SizedBox(
-//                         height: 15,
-//                       ),
-//                       // Text Security...
-//                       Padding(
-//                         padding: const EdgeInsets.symmetric(
-//                             horizontal: 20, vertical: 20),
-//                         child: Row(
-//                           crossAxisAlignment: CrossAxisAlignment.center,
-//                           children: [
-//                             Icon(
-//                               Icons.security,
-//                               size: 50,
-//                               color: Colors.white,
-//                             ),
-//                             SizedBox(
-//                               width: 8,
-//                             ),
-//                             Expanded(
-//                               flex: 1,
-//                               child: Text(
-//                                 "This Information will only be used in Emergency Situations and we will ensure your Information Security",
-//                                 textAlign: TextAlign.center,
-//                                 style: TextStyle(
-//                                     color: Colors.white, fontSize: 17),
-//                               ),
-//                             )
-//                           ],
-//                         ),
-//                       ),
-//                       // SizedBox(
-//                       //   height: MediaQuery.of(context).size.height / 70,
-//                       // ),
-//                       Column(
-//                         children: [
-//                          
-//                         ],
-//                       )
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),

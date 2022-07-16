@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:my_cash/controllers/API_MANGER/api_manager.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
 import 'package:my_cash/controllers/Preferences/preferences.dart';
+import 'package:my_cash/controllers/location.dart';
 import 'package:my_cash/models/packages_model.dart';
 import 'package:my_cash/models/post_package_model.dart';
 import 'package:my_cash/view/Certification%20center/Basic%20Information/basic_information_2.dart';
@@ -41,6 +42,7 @@ class _HomeState extends State<Home> {
   }
 
   getPackagesList() async {
+    getCurrentLocation();
     dataList = await getPackages();
     setState(() {});
   }
@@ -50,14 +52,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
-      child: Scaffold(
-        // floatingActionButton: FloatingActionButton(onPressed: ()async{
-        //   SavedPreferences.clearPreference();
-        //   print("CLERED");
-        //   // GlobalState.postPackage = postPackageModelFromJson(await SavedPreferences.getPackageDetails());
-        //   // print(GlobalState.postPackage!.toJson());
-        //   // APIManager().postPackageDetail(context);
-        // }),
+        child: Scaffold(
+      // floatingActionButton: FloatingActionButton(onPressed: () async {
+      //   SavedPreferences.clearPreference();
+      //   GlobalState.userDetails = null;
+      //   print("CLERED ${GlobalState.userDetails}");        
+      // }),
       resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       drawer: Menu(),

@@ -16,7 +16,6 @@ class _BasicInformationState extends State<BasicInformation> {
   // Controllers
 
   final fullNameController = TextEditingController();
-  final educationController = TextEditingController();
   final cityController = TextEditingController();
   final provinceController = TextEditingController();
   final addressController = TextEditingController();
@@ -349,12 +348,64 @@ class _BasicInformationState extends State<BasicInformation> {
                         items: marialList),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 70,
+                    height: MediaQuery.of(context).size.height / 70 - 5,
                   ),
-                  CustomTextField(
-                    title: "Education",
-                    controller: educationController,
+                  // Education
+                    Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Text(
+                      "Education",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: size.width * 0.04,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
+                  SizedBox(
+                    height: 40,
+                    child: DropdownButtonFormField(
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primayColor, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primayColor, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primayColor, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: primayColor, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "Education",
+                          labelStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: size.width * 0.036,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        dropdownColor: Colors.white,
+                        // value: selectedWalletType,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedEducation = newValue!;
+                          });
+                        },
+                        items: educationList),
+                  ),
+               
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 70,
                   ),
@@ -386,7 +437,7 @@ class _BasicInformationState extends State<BasicInformation> {
                           snackBar(context, "Please! Enter Full Name");
                         } else if (selectedMarial == null ||   selectedMarial!.isEmpty) {
                           snackBar(context, "Please! Enter Martial Status");
-                        } else if (educationController.text.isEmpty) {
+                        } else if (selectedEducation == null ||   selectedEducation!.isEmpty) {
                           snackBar(context, "Please! Enter Education");
                         } else if (cityController.text.isEmpty) {
                           snackBar(context, "Please! Enter City");
@@ -407,7 +458,7 @@ class _BasicInformationState extends State<BasicInformation> {
                           GlobalState.userDetails!.martialStatus =
                               selectedMarial;
                           GlobalState.userDetails!.education =
-                              educationController.text;
+                              selectedEducation;
                           GlobalState.userDetails!.city = cityController.text;
                           GlobalState.userDetails!.province =
                               provinceController.text;
@@ -456,6 +507,19 @@ class _BasicInformationState extends State<BasicInformation> {
       DropdownMenuItem(child: Text("Married"), value: "married"),
       DropdownMenuItem(child: Text("Widowed"), value: "widowed"),
       DropdownMenuItem(child: Text("Divorced"), value: "divorced"),
+    ];
+    return menuItems;
+  }
+
+
+    String? selectedEducation;
+  List<DropdownMenuItem<String>> get educationList {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Under Matric"), value: "underMatric"),
+      DropdownMenuItem(child: Text("Matric"), value: "Matric"),
+      DropdownMenuItem(child: Text("Intermediate"), value: "intermediate"),
+      DropdownMenuItem(child: Text("Graduation"), value: "graduation"),
+      DropdownMenuItem(child: Text("Masters"), value: "masters"),
     ];
     return menuItems;
   }

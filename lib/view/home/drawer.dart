@@ -113,7 +113,11 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            
                             Text(GlobalState.userDetails!.fullName?? 'USER' ),
+                            // Text("${GlobalState.userDetails != null
+                            //     ? GlobalState.userDetails!.fullName
+                            //     : 'USER'}"),
                             
                             Text("${FirebaseAuth.instance.currentUser!.phoneNumber}"),
                           ],

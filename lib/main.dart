@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_cash/Utils/constant.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
 import 'package:my_cash/view/splash_screen.dart';
 import 'package:my_cash/controllers/saving_user_details.dart';
@@ -21,7 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: "calibril"),
+      
+      theme: ThemeData(fontFamily: "calibril",
+       colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: primayColor
+          ),
+      ),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );

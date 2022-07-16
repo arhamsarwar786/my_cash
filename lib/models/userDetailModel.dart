@@ -44,6 +44,9 @@ class UserDetailModel {
         this.systemVersion,
         this.equipmentModel,
         this.secondaryContacts,
+
+        this.lat,
+        this.long,
     });
 
     String? firstName;
@@ -79,6 +82,9 @@ class UserDetailModel {
     String? systemVersion;
     String? equipmentModel;
     String? secondaryContacts;
+
+    String? lat;
+    String? long;
     // String? secondaryContacts;
 
     factory UserDetailModel.fromJson(Map<String, dynamic> json) => UserDetailModel(
@@ -115,6 +121,9 @@ class UserDetailModel {
         systemVersion: json["systemVersion"],
         equipmentModel: json["equipmentModel"],
         secondaryContacts: json["secondaryContacts"] ,
+
+        lat: json["lat"] ,
+        long: json["long"] ,
         // secondaryContacts: "",
     );
 
@@ -153,5 +162,7 @@ class UserDetailModel {
         "equipmentModel": equipmentModel,
         // "secondaryContacts": "",
         "secondaryContacts": secondaryContacts,
+        "lat": lat,
+        "long": long,
     };
 }
