@@ -38,11 +38,12 @@ class _HomeState extends State<Home> {
     super.initState();
     // GlobalState.userDetails!.phoneNumber =
     //     FirebaseAuth.instance.currentUser!.phoneNumber;
+    getCurrentLocation();
     getPackagesList();
   }
 
   getPackagesList() async {
-    getCurrentLocation();
+    
     dataList = await getPackages();
     setState(() {});
   }
