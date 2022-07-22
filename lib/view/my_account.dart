@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
 
 
 import '../Utils/constant.dart';
+import '../controllers/image_picker_controller.dart';
 import 'Certification center/certification_center.dart';
 import 'Certification center/Mobile or Bank/mobile_bank.dart';
 import 'FAQ.dart';
@@ -40,6 +43,30 @@ class _MyAccountState extends State<MyAccount> {
     PrivicyPolicy(),
     SettingScreen(),
   ];
+
+
+  @override
+  void initState() {
+    
+    super.initState();
+  getImage();
+  }
+
+  getImage()async{
+    
+  if(GlobalState.userDetails != null){    
+    if(GlobalState.userDetails!.selfieImg != null){
+     fileImage =await decodeImageBase64(GlobalState.userDetails!.selfieImg!);
+     setState(() {
+       
+     });
+    } 
+
+  }
+  }
+
+  var fileImage;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,7 +78,7 @@ class _MyAccountState extends State<MyAccount> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                    image: DecorationImage(
+                    image:  DecorationImage(
                         image: AssetImage("assets/images/bgimage.png"),
                         fit: BoxFit.fill)),
                 child: Column(
@@ -72,22 +99,30 @@ class _MyAccountState extends State<MyAccount> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.30,
                         ),
+                    
+                      ],
+                    ),
+                    fileImage != null ?
+                    CircleAvatar(
+                      radius: 45,
+                      backgroundColor: Colors.grey,                      
+                      backgroundImage:   MemoryImage(fileImage)
+                    ) :
+                    CircleAvatar(
+                      radius: 45,
+                      backgroundColor: Colors.grey,                      
+                      backgroundImage:   AssetImage("assets/images/person.jpg")
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
                         Text(
-                          GlobalState.userDetails!.fullName ?? 'USER' ,
+                          GlobalState.userDetails == null ? 'USER' :  GlobalState.userDetails!.fullName ?? 'USER'  ,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.w700),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    CircleAvatar(
-                      radius: 45,
-                      backgroundColor: Colors.grey,
-                    ),
                     SizedBox(
                       height: 15,
                     ),

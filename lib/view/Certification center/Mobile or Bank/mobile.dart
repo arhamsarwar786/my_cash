@@ -16,9 +16,30 @@ class _MobileAccountState extends State<MobileAccount> {
 
   List<DropdownMenuItem<String>> get accountsList {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("EassyPaisa"), value: "EassyPaisa"),
-      DropdownMenuItem(child: Text("Jazz Cash"), value: "Jazz Cash"),
-      DropdownMenuItem(child: Text("U Paisa"), value: "U Paisa"),
+      DropdownMenuItem(child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Image.asset("assets/images/bankImages/e.png",height: 30,),
+          Text("EassyPaisa"),
+        ],
+      ), value: "EassyPaisa"),
+      DropdownMenuItem(child: Row(
+        children: [
+          SizedBox(width: 15,),
+          Image.asset("assets/images/bankImages/jazz.jpg",height: 20,),
+          SizedBox(width: 15,),
+          Text("Jazz Cash"),
+        ],
+      ), value: "Jazz Cash"),
+      DropdownMenuItem(child: Row(
+        children: [
+          SizedBox(width: 15,),
+          Image.asset("assets/images/bankImages/u.png",height: 20,),
+          SizedBox(width: 15,),
+
+          Text("U Paisa"),
+        ],
+      ), value: "U Paisa"),
     ];
     return menuItems;
   }

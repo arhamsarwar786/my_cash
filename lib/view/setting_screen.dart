@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_cash/controllers/GlobalState.dart';
+import 'package:my_cash/view/authentication/register_screen.dart';
 import '../Utils/constant.dart';
 import '../widgets.dart';
 import 'change_password.dart';
@@ -60,48 +63,6 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ChangePassword(),
-                  ));
-                },
-                child: Card(
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Container(
-                    height: 60,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(5)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Modify Login Password",
-                              style: TextStyle(
-                                color: primayColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              )),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 20,
-                            color: primayColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
             SizedBox(
               height: 25,
             ),
@@ -150,7 +111,10 @@ showAlertDialog(BuildContext context) {
       ),
     ),
     onPressed: () {
-      Navigator.of(context).pop();
+      FirebaseAuth.instance.signOut();
+      GlobalState.userDetails = null;
+      GlobalState.postPackage = null;
+      Navigator.pushAndRemoveUntil(context,  MaterialPageRoute(builder: (context)=> RegisterScreen()  ), (route) => false);
     },
   );
 

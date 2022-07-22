@@ -11,6 +11,7 @@ import 'package:my_cash/controllers/GlobalState.dart';
 import 'package:my_cash/controllers/image_picker_controller.dart';
 import 'package:my_cash/models/loan_status_model.dart';
 import 'package:my_cash/models/packages_model.dart';
+import 'package:my_cash/models/userDetailModel.dart';
 
 class APIManager {
   // Dio dio = Dio();
@@ -140,6 +141,26 @@ class APIManager {
   }
 
 
+
+
+
+  getUserDetails({phone}) async {
+    try {
+    var detail = await http
+        .post(
+            Uri.parse(
+                "https://www.geoinvest.pk/loan_dashboad/api/get_user_details.php"),
+            body: {"phone_number":phone} );
+            var resDecoded = jsonDecode(detail.body);
+            
+          UserDetailModel res = UserDetailModel.fromJson(resDecoded[0]);
+          print(res.contactsList);
+          // return res;
+      
+    } catch (e) {
+      print(e);
+    }          
+  }
 
 
 }

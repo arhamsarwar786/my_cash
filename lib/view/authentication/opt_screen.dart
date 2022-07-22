@@ -8,6 +8,7 @@ import 'package:my_cash/controllers/Preferences/preferences.dart';
 import 'package:my_cash/models/userDetailModel.dart';
 import 'package:my_cash/widgets.dart';
 
+import '../../controllers/API_MANGER/api_manager.dart';
 import '../../controllers/firebaseAuth.dart';
 import '../../controllers/saving_user_details.dart';
 import '../home/home_screen.dart';
@@ -213,7 +214,7 @@ class _OtpScreenState extends State<OtpScreen> {
             if (last == true) {
               smsCode =
                   "${codeDigit1.text}${codeDigit2.text}${codeDigit3.text}${codeDigit4.text}${codeDigit5.text}${codeDigit6.text}";
-              print(smsCode);
+     
               auth
                   .signInWithCredential(PhoneAuthProvider.credential(
                       verificationId: _verificationId!, smsCode: smsCode!))
@@ -222,6 +223,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     saveUserGlobally();                  
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) => Home()));
+
+                  //  fetchUserDetails(number: widget.phoneNumber);
                 }
               }).catchError((e) {
                 snackBar(context, "Invalid OTP");

@@ -41,9 +41,9 @@ DateTime selectedDate = DateTime.now();
 selectDate(BuildContext context) async {
   final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: DateTime(1980, 1),
       firstDate: DateTime(1950, 1),
-      lastDate: DateTime(2022));
+      lastDate: DateTime(2002));
   if (picked != null) {
     selectedDate = picked;
     return selectedDate;

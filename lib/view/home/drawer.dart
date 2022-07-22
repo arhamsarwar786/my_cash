@@ -114,7 +114,7 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             
-                            Text(GlobalState.userDetails!.fullName?? 'USER' ),
+                            Text(GlobalState.userDetails == null ? 'USER' :  GlobalState.userDetails!.fullName ?? 'USER' ),
                             // Text("${GlobalState.userDetails != null
                             //     ? GlobalState.userDetails!.fullName
                             //     : 'USER'}"),

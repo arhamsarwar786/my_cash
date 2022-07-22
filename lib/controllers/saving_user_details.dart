@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import '../models/userDetailModel.dart';
+import 'API_MANGER/api_manager.dart';
 import 'GlobalState.dart';
 import 'Preferences/preferences.dart';
 
@@ -9,20 +12,9 @@ updateUserDetails(data){
   SavedPreferences.saveUserDetails(jsonEncode(data));
 }
 
-
-// saveUserDetail(Map entry) async {
-//   var data = await SavedPreferences.getUserDetails();
-//   if (data != null) {
-//     // print(data.contains(singleDetailKey));
-//     data.addEntries(entry);
-//     SavedPreferences.saveUserDetails(data);
-//     GlobalState.userDetails = UserDetailModel.fromJson(jsonDecode(data));
-//     print(GlobalState.userDetails!.phoneNumber);
-//   } else {
-//     SavedPreferences.updateUserDetails(entry);
-//     print(data);
-//   }
-// }
+fetchUserDetails({@required number}){
+  APIManager().getUserDetails(phone: number);
+}
 
 saveUserGlobally() async {
   if (GlobalState.userDetails == null) {

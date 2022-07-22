@@ -7,6 +7,8 @@ import 'package:my_cash/controllers/API_MANGER/api_manager.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
 import 'package:my_cash/controllers/Preferences/preferences.dart';
 import 'package:my_cash/controllers/location.dart';
+import 'package:my_cash/controllers/permissions.dart';
+import 'package:my_cash/controllers/saving_user_details.dart';
 import 'package:my_cash/models/packages_model.dart';
 import 'package:my_cash/models/post_package_model.dart';
 import 'package:my_cash/view/Certification%20center/Basic%20Information/basic_information_2.dart';
@@ -14,6 +16,7 @@ import 'package:my_cash/view/home/widgets.dart';
 import 'package:my_cash/view/my_account.dart';
 import 'package:my_cash/widgets.dart';
 import '../../Utils/constant.dart';
+import '../../controllers/device_info.dart';
 import '../Certification center/Basic Information/contacts_list.dart';
 import '../Certification center/certification_center.dart';
 import '../FAQ.dart';
@@ -38,12 +41,14 @@ class _HomeState extends State<Home> {
     super.initState();
     // GlobalState.userDetails!.phoneNumber =
     //     FirebaseAuth.instance.currentUser!.phoneNumber;
-    getCurrentLocation();
+
     getPackagesList();
+    MyPermission.initialize();
   }
 
+
+
   getPackagesList() async {
-    
     dataList = await getPackages();
     setState(() {});
   }
@@ -51,14 +56,24 @@ class _HomeState extends State<Home> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () {
+    if (GlobalState.isDataPosted) {
+      showAlert(context,
+          title: "Congratulations!",
+          content: "Your Information is Posted! Now wait for your LOAN",
+          type: "success");
+    }
+
+      });
     Size size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
-      // floatingActionButton: FloatingActionButton(onPressed: () async {
-      //   SavedPreferences.clearPreference();
-      //   GlobalState.userDetails = null;
-      //   print("CLERED ${GlobalState.userDetails}");        
-      // }),
+    //   floatingActionButton: FloatingActionButton(onPressed: () async {
+    //     // SavedPreferences.clearPreference();
+    //     // GlobalState.userDetails = null;
+    //     // print("CLERED ${GlobalState.userDetails!}");
+    //  fetchUserDetails(number: "+923144325427");
+    //   }),
       resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       drawer: Menu(),
@@ -276,6 +291,7 @@ class _HomeState extends State<Home> {
               ),
               InkWell(
                 onTap: () {
+                  MyPermission.initialize();
                   if (dataList == null) {
                     snackBar(context, "Select Package First");
                   } else {

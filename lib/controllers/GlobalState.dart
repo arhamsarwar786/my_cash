@@ -7,6 +7,8 @@ class GlobalState {
   static UserDetailModel? userDetails;
   static PostPackageModel? postPackage;
 
+  static bool isDataPosted = false;
+
   // static setPostPackageDetails() {
   //   if (postPackage == null) {
   //     var data = {"packageId": ""};

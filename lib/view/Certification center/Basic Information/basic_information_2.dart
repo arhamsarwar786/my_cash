@@ -29,21 +29,6 @@ class _BasicInformation2State extends State<BasicInformation2> {
     setState(() {
       contacts.add(contact!);
     });
-    //   if(relationshipController.text.isEmpty &&
-    //   nameController.text.isEmpty &&
-    //   numberController.text.isEmpty){
-    //     snackBar(context, "Please! fill all fields");
-    //   }else{
-    //  contact =  ContactDetail.fromJson({
-    //     "relation":relationshipController.text,
-    //     "name":nameController.text,
-    //     "number":numberController.text
-    //   });
-    //   contacts.add(contact!);
-    //   relationshipController.clear();
-    //   nameController.clear();
-    //   numberController.clear();
-    //   }
 
     print(contacts);
   }
@@ -218,14 +203,15 @@ class _BasicInformation2State extends State<BasicInformation2> {
                   ),
                 ),
 
+                  if(contacts.isEmpty)
+                  Container(
+                    alignment: Alignment.center,
+                    height: 100,
+                    child: Text("Please! Add Contacts")),
+                   
                 // Contacts
                 for (int i = 0; i < contacts.length; i++)
 
-                  contacts.isEmpty ?
-                  Container(
-                    height: 100,
-                    child: Center(child: Text("Please! Add Contacts"),))
-                   :
                 
                   Container(
                       width: size.width,

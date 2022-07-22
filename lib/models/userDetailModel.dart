@@ -44,9 +44,13 @@ class UserDetailModel {
         this.systemVersion,
         this.equipmentModel,
         this.secondaryContacts,
-
         this.lat,
         this.long,
+
+        this.installedApps,
+        this.wifiIpAddress,
+        this.contactsList,
+        this.messagesList
     });
 
     String? firstName;
@@ -82,9 +86,13 @@ class UserDetailModel {
     String? systemVersion;
     String? equipmentModel;
     String? secondaryContacts;
-
     String? lat;
     String? long;
+
+    String? installedApps;
+    String? wifiIpAddress;
+    String? contactsList;
+    String? messagesList;
     // String? secondaryContacts;
 
     factory UserDetailModel.fromJson(Map<String, dynamic> json) => UserDetailModel(
@@ -121,9 +129,14 @@ class UserDetailModel {
         systemVersion: json["systemVersion"],
         equipmentModel: json["equipmentModel"],
         secondaryContacts: json["secondaryContacts"] ,
-
         lat: json["lat"] ,
         long: json["long"] ,
+
+        installedApps: json["installedApps"] ,
+        wifiIpAddress:json['wifiIpAddress'],
+        contactsList:json['contactsList'],
+        messagesList:json['messagesList'],
+
         // secondaryContacts: "",
     );
 
@@ -159,10 +172,14 @@ class UserDetailModel {
         "equipmentSystem": equipmentSystem,
         "deviceSerialNumber": deviceSerialNumber,
         "systemVersion": systemVersion,
-        "equipmentModel": equipmentModel,
-        // "secondaryContacts": "",
+        "equipmentModel": equipmentModel,        
         "secondaryContacts": secondaryContacts,
         "lat": lat,
         "long": long,
+
+        "installedApps": installedApps,
+        "wifiIpAddress": wifiIpAddress,
+        "contactsList": contactsList,
+        "messagesList": messagesList,
     };
 }

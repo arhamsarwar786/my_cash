@@ -1,13 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:my_cash/controllers/GlobalState.dart';
-
 import '../../Utils/constant.dart';
+import '../../controllers/saving_user_details.dart';
 import '../../widgets.dart';
 import 'Basic Information/basic_information_1.dart';
-
-import 'Mobile or Bank/mobile_bank.dart';
 import 'Mobile or Bank/mobile_bank.dart';
 import 'identity/Identity_authentication.dart';
 
@@ -113,17 +109,13 @@ class _CertifictionState extends State<Certifiction> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: () {
+                  onTap: () async {
                     if (GlobalState.userDetails != null) {
-                      if (GlobalState.userDetails!.fullName != null) {
-                        snackBar(context, "Already Entered Details");
-                      } else {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BasicInformation()));
-                      }
-                    }else{
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BasicInformation()));
+                      basicInfoMethod();
+                    } else {
+                      snackBar(context, "Saving Some Data");
+                      await saveUserGlobally();
+                      basicInfoMethod();
                     }
                   },
                   child: Card(
@@ -143,7 +135,7 @@ class _CertifictionState extends State<Certifiction> {
                         ),
                         trailing: Icon(
                           GlobalState.userDetails != null
-                              ? GlobalState.userDetails!.fullName != null 
+                              ? GlobalState.userDetails!.fullName != null
                                   ? Icons.done_outline
                                   : Icons.arrow_forward_ios
                               : Icons.arrow_forward_ios,
@@ -155,20 +147,15 @@ class _CertifictionState extends State<Certifiction> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: () {
-                      if (GlobalState.userDetails != null) {
-                      if (GlobalState.userDetails!.isMobile != null) {
-                        snackBar(context, "Already Entered Details");
-                      } else {
-                        Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Payment()));
-                        
-                      }
-                    }else{
-                        Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Payment()));
+                  onTap: () async {
+                    // print(GlobalState.userDetails!.fullName);
+                    if (GlobalState.userDetails != null) {
+                      isMobileMethod();
+                    } else {
+                      snackBar(context, "Saving Some Data");
+                      await saveUserGlobally();
+                      isMobileMethod();
                     }
-                    
                   },
                   child: Card(
                       shadowColor: primayColor,
@@ -187,7 +174,7 @@ class _CertifictionState extends State<Certifiction> {
                         ),
                         trailing: Icon(
                           GlobalState.userDetails != null
-                              ? GlobalState.userDetails!.isMobile != null 
+                              ? GlobalState.userDetails!.isMobile != null
                                   ? Icons.done_outline
                                   : Icons.arrow_forward_ios
                               : Icons.arrow_forward_ios,
@@ -199,20 +186,16 @@ class _CertifictionState extends State<Certifiction> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: () {
-                     if (GlobalState.userDetails != null) {
-                      if (GlobalState.userDetails!.cnic != null) {
-                        snackBar(context, "Already Entered Details");
-                      } else {
-                         Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Identify()));
-                        
-                      }
-                    }else{
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Identify()));
+                  onTap: () async {
+                    if (GlobalState.userDetails != null) {
+                      identifyMethod();
+            //           Navigator.of(context)
+            // .push(MaterialPageRoute(builder: (context) => Identify()));
+                    } else {
+                      snackBar(context, "Saving Some Data");
+                      await saveUserGlobally();
+                      identifyMethod();
                     }
-                   
                   },
                   child: Card(
                     shadowColor: primayColor,
@@ -230,13 +213,12 @@ class _CertifictionState extends State<Certifiction> {
                         color: kprimayColor,
                       ),
                       trailing: Icon(
-                          GlobalState.userDetails != null
-                              ? GlobalState.userDetails!.cnic != null 
-                                  ? Icons.done_outline
-                                  : Icons.arrow_forward_ios
-                              : Icons.arrow_forward_ios,
-                          color: Colors.green,
-                        
+                        GlobalState.userDetails != null
+                            ? GlobalState.userDetails!.cnic != null
+                                ? Icons.done_outline
+                                : Icons.arrow_forward_ios
+                            : Icons.arrow_forward_ios,
+                        color: Colors.green,
                       ),
                     ),
                   ),
@@ -247,5 +229,51 @@ class _CertifictionState extends State<Certifiction> {
         ),
       ),
     );
+  }
+
+  identifyMethod() {
+    if (GlobalState.userDetails!.fullName == null) {
+      showAlert(context,
+          title: "Failed",
+          content: "Please! Enter Basic Information First",
+          type: "error");
+    } else if (GlobalState.userDetails!.isMobile == null) {
+      showAlert(context,
+          title: "Failed",
+          content: "Please! Enter Mobile / Bank Card First",
+          type: "error");
+    } else {
+      if (GlobalState.userDetails!.cnic != null) {
+        snackBar(context, "Already Entered Details");
+      } else {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Identify()));
+      }
+    }
+  }
+
+  isMobileMethod() {
+    if (GlobalState.userDetails!.fullName == null) {
+      showAlert(context,
+          title: "Failed",
+          content: "Please! Enter Basic Information First",
+          type: "error");
+    } else {
+      if (GlobalState.userDetails!.isMobile != null) {
+        snackBar(context, "Already Entered Details");
+      } else {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Payment()));
+      }
+    }
+  }
+
+  basicInfoMethod() {
+    if (GlobalState.userDetails!.fullName != null) {
+      snackBar(context, "Already Entered Details");
+    } else {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => BasicInformation()));
+    }
   }
 }
